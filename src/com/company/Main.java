@@ -18,12 +18,31 @@ public class Main {
             if (fileObject.createNewFile()) {
                 System.out.println("Library created: " + fileObject.getName());
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error found: " + e);
         }
 
-        bookInfo.add(getBookInfo());
+        System.out.println("Welcome to the Library.");
+
+        boolean loop = true;
+
+        while (loop == true) {
+            String menuSelect = getInput("1. Add Book\n2. View Books\n3. Exit\n");
+            switch (menuSelect) {
+                case "1":
+                    bookInfo.clear();
+                    bookInfo.add(getBookInfo());
+                    LibraryWrite();
+                    break;
+
+                case "2":
+                    LibraryRead();
+                    break;
+
+                case "3":
+                    loop = false;
+            }
+        }
     }
 
     public static String getBookInfo() {
@@ -31,7 +50,7 @@ public class Main {
         String bookISBN = getInput("Enter Book ISBN: ");
         String bookAuthor = getInput("Enter Book Author: ");
         String bookGenre = getInput("Enter Book Genre: ");
-        return (bookTitle + "," + bookISBN + "," + bookAuthor + "," + bookGenre);
+        return (bookTitle + ", " + bookISBN + ", " + bookAuthor + ", " + bookGenre);
     }
 
     public static void LibraryWrite() {
@@ -43,7 +62,7 @@ public class Main {
         }
 
         try {
-            fileWriter.write(String.valueOf(bookInfo));
+            fileWriter.write(String.valueOf(bookInfo) + "\n");
         } catch (IOException e) {
             System.out.println("Error found: " + e);
         }
@@ -54,30 +73,26 @@ public class Main {
             System.out.println("Error found: " + e);
         }
 
-        System.out.println("Successfully wrote to the Library.");
+        System.out.println("\nBook successfully added to the Library.\n");
     }
-
-//--------------------------------------------- IN PROGRESS ---------------------------------------------\\
 
     public static void LibraryRead() {
         try {
-            Scanner myReader = new Scanner(fileObject);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
+            Scanner libraryReader = new Scanner(fileObject);
+            while (libraryReader.hasNextLine()) {
+                String data = libraryReader.nextLine();
                 System.out.println(data);
             }
-            myReader.close();
+            libraryReader.close();
+            System.out.println("\n");
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println("Error found: " + e);
         }
     }
-
-//---------------------------------------------------------------------------------------------------------\\
 
     public static String getInput(String prompt) {
         System.out.print(prompt);
         Scanner input = new Scanner(System.in);
-        return input.next();
+        return input.nextLine();
     }
 }
