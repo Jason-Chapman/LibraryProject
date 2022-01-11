@@ -7,7 +7,9 @@ import java.util.Scanner;
 public class Main {
 
     private static ArrayList<String> bookInfo = new ArrayList<>();
+    private static ArrayList<String> listOfBooks = new ArrayList<>();
     private static ArrayList<String> BorrowerInfo = new ArrayList<>();
+    private static ArrayList<String> listOfBorrowers = new ArrayList<>();
     private static File LibraryFile = new File("Library.txt");
     private static File BorrowersFile = new File("Borrowers.txt");
 
@@ -26,11 +28,12 @@ public class Main {
         boolean loop = true;
 
         while (loop == true) {
+
+
             String menuSelect = getInput("1. Add Book\n2. View Books\n3. Edit Book\n4. Delete Book\n5. Add Borrower\n6. View Borrowers\n7. Edit Borrower\n8. Delete Borrower\n9. Exit\n");
             switch (menuSelect) {
                 case "1":
-                    bookInfo.clear();
-                    bookInfo.add(getBookInfo());
+                    Books book = new Books(getInput("Enter Book Title: "), getInput("Enter Book ISBN: "), getInput("Enter Book Author: "), getInput("Enter Book Genre: "));
                     LibraryWrite();
                     break;
 
@@ -77,14 +80,6 @@ public class Main {
         }
     }
 
-    public static String getBookInfo() {
-        String bookTitle = getInput("Enter Book Title: ");
-        String bookISBN = getInput("Enter Book ISBN: ");
-        String bookAuthor = getInput("Enter Book Author: ");
-        String bookGenre = getInput("Enter Book Genre: ");
-        return (bookTitle + ", " + bookISBN + ", " + bookAuthor + ", " + bookGenre);
-    }
-
     public static String getBorrowerInfo() {
         String borrowerFirstName = getInput("Enter First Name: ");
         String borrowerLastName = getInput("Enter Last Name: ");
@@ -101,7 +96,7 @@ public class Main {
         }
 
         try {
-            fileWriter.write(String.valueOf(bookInfo) + "\n");
+            fileWriter.write(String.valueOf(book) + "\n");
         } catch (IOException e) {
             System.out.println("Error found: " + e);
         }
@@ -251,8 +246,6 @@ public class Main {
             tempWriter.write(currentLine + "\n");
         }
 
-//        fileClear(LibraryFile);
-
         tempWriter.close();
         libraryReader.close();
 
@@ -286,8 +279,6 @@ public class Main {
             tempWriter.write(currentLine + "\n");
         }
 
-//        fileClear(LibraryFile);
-
         tempWriter.close();
         borrowerReader.close();
 
@@ -303,6 +294,20 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+//    public static Object GetData(File filename) {
+//        try {
+//            Scanner fileReader = new Scanner(filename);
+//            while (fileReader.hasNextLine()) {
+//                String data = fileReader.nextLine();
+//                System.out.println(data);
+//            }
+//            fileReader.close();
+//            System.out.println("\n");
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Error found: " + e);
+//        }
+//    }
 
     public static String getInput(String prompt) {
         System.out.print(prompt);
