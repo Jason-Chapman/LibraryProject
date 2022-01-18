@@ -1,17 +1,16 @@
 package com.company;
 
-public class Books {
-    private String Title;
-    private String ISBN;
-    private String Author;
-    private String Genre;
+public class Book {
+    protected String Title;
+    protected String ISBN;
+    protected String Author;
+    protected String Genre;
 
-    public Books(String Title, String ISBN, String Author, String Genre) {
-        this.Title = Title;
+    public Book(String title, String ISBN, String author, String genre) {
+        this.Title = title;
         this.ISBN = ISBN;
-        this.Author = Author;
-        this.Genre = Genre;
-
+        this.Author = author;
+        this.Genre = genre;
     }
 
     public String getTitle() {
@@ -44,15 +43,5 @@ public class Books {
 
     public void setGenre(String genre) {
         Genre = genre;
-    }
-
-    @Override
-    public String toString() {
-        return "Books{" +
-                "Title='" + Title + '\'' +
-                ", ISBN='" + ISBN + '\'' +
-                ", Author='" + Author + '\'' +
-                ", Genre='" + Genre + '\'' +
-                '}';
     }
 }

@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
 
     private static ArrayList<String> bookInfo = new ArrayList<>();
-    private static ArrayList<String> listOfBooks = new ArrayList<>();
+    private static ArrayList<Books> listOfBooks = new ArrayList<>();
     private static ArrayList<String> BorrowerInfo = new ArrayList<>();
     private static ArrayList<String> listOfBorrowers = new ArrayList<>();
     private static File LibraryFile = new File("Library.txt");
@@ -33,8 +33,13 @@ public class Main {
             String menuSelect = getInput("1. Add Book\n2. View Books\n3. Edit Book\n4. Delete Book\n5. Add Borrower\n6. View Borrowers\n7. Edit Borrower\n8. Delete Borrower\n9. Exit\n");
             switch (menuSelect) {
                 case "1":
+                    FileWriter fileWriter = new FileWriter(LibraryFile.getName(), true);
                     Books book = new Books(getInput("Enter Book Title: "), getInput("Enter Book ISBN: "), getInput("Enter Book Author: "), getInput("Enter Book Genre: "));
-                    LibraryWrite();
+                    listOfBooks.add(book);
+//                    fileWriter.write(String.valueOf(listOfBooks) + "\n");
+//                    fileWriter.close();
+                    System.out.println(book.getTitle());
+                    System.out.println("\nBook successfully added to the Library.\n");
                     break;
 
                 case "2":
@@ -87,28 +92,28 @@ public class Main {
         return (borrowerFirstName + ", " + borrowerLastName + ", " + borrowerBook);
     }
 
-    public static void LibraryWrite() {
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(LibraryFile.getName(), true);
-        } catch (IOException e) {
-            System.out.println("Error found: " + e);
-        }
-
-        try {
-            fileWriter.write(String.valueOf(book) + "\n");
-        } catch (IOException e) {
-            System.out.println("Error found: " + e);
-        }
-
-        try {
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Error found: " + e);
-        }
-
-        System.out.println("\nBook successfully added to the Library.\n");
-    }
+//    public static void LibraryWrite(book) {
+//        FileWriter fileWriter = null;
+//        try {
+//            fileWriter = new FileWriter(LibraryFile.getName(), true);
+//        } catch (IOException e) {
+//            System.out.println("Error found: " + e);
+//        }
+//
+//        try {
+//            fileWriter.write(String.valueOf(book) + "\n");
+//        } catch (IOException e) {
+//            System.out.println("Error found: " + e);
+//        }
+//
+//        try {
+//            fileWriter.close();
+//        } catch (IOException e) {
+//            System.out.println("Error found: " + e);
+//        }
+//
+//        System.out.println("\nBook successfully added to the Library.\n");
+//    }
 
     public static void BorrowerWrite() {
         FileWriter fileWriter = null;
