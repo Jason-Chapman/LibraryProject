@@ -44,4 +44,14 @@ public class Book {
     public void setGenre(String genre) {
         Genre = genre;
     }
+
+    @Override
+    public String toString() {
+        return "Books{" +
+                "Title='" + Title + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                ", Author='" + Author + '\'' +
+                ", Genre='" + Genre + '\'' +
+                '}';
+    }
 }

@@ -6,8 +6,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static ArrayList<String> bookInfo = new ArrayList<>();
-    private static ArrayList<Books> listOfBooks = new ArrayList<>();
+    private static ArrayList<Object> listOfBooks = new ArrayList<>();
     private static ArrayList<String> BorrowerInfo = new ArrayList<>();
     private static ArrayList<String> listOfBorrowers = new ArrayList<>();
     private static File LibraryFile = new File("Library.txt");
@@ -27,6 +26,8 @@ public class Main {
 
         boolean loop = true;
 
+        getAllBooks();
+
         while (loop == true) {
 
 
@@ -43,7 +44,8 @@ public class Main {
                     break;
 
                 case "2":
-                    LibraryRead();
+                    // MAKE THIS PRINT OUT ALL CONTENTS OF EACH BOOK IN ARRAY
+                    System.out.println(listOfBooks.toString());
                     break;
 
                 case "3":
@@ -82,6 +84,25 @@ public class Main {
                 case "9":
                     loop = false;
             }
+        }
+    }
+
+    public static void getAllBooks() {
+        try {
+            Scanner libraryReader = new Scanner(LibraryFile);
+            while (libraryReader.hasNextLine()) {
+                libraryReader.useDelimiter(",");
+                String title = libraryReader.next();
+                String isbn = libraryReader.next();
+                String author = libraryReader.next();
+                String genre = libraryReader.next();
+                Book currentBook = new Book(title, isbn, author, genre);
+                listOfBooks.add(currentBook);
+            }
+            libraryReader.close();
+            System.out.println("\n");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error found: " + e);
         }
     }
 
